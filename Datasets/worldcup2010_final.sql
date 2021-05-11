@@ -1069,4 +1069,3 @@ INSERT INTO Stage (id, name) VALUES
 (3, 'Quarter-finals'),
 (4, 'Semi-finals'),
 (5, 'Match for third place');
-
