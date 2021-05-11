@@ -1,3 +1,0 @@
-SELECT *
-FROM Bancos
-LIMIT 2;
