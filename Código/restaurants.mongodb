@@ -1,2 +1,8 @@
 -- Este ejemplo utiliza los documentos JSON contenidos
 -- en el archivo restaurants.json
+
+-- Cargarlos en MongoDB con el comando mongoimport.
+show collections
+
+
+

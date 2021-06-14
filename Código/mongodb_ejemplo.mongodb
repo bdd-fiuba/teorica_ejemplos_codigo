@@ -1,1 +1,125 @@
 -- Este ejemplo no requiere de ningún dataset.
+
+show dbs
+use base_empresa
+show collections
+db.clientes.count()
+db.clientes.drop()
+
+// ----------------------------------------
+// 1) Insertamos algunos clientes
+// ----------------------------------------
+
+// Por cada documento agregado se creará un id, que quedará guardado bajo la clave "_id" del documento.
+db.clientes.insertOne({
+    "nombre": "Mario",
+    "apellido": "Wilkerson",
+    "domicilio": "Av. Entre Ríos 1560"}
+)
+db.clientes.count()
+
+db.clientes.insertMany([{
+    "nombre": "Horacio",
+    "apellido": "Fonseca",
+    "localidad": "Morón"}]
+)
+
+db.clientes.insertMany([{
+    "apellido": "Gandría",
+    "localidad": "Caballito"
+    }, {
+    "apellido": "Findo",
+    "nombre": "Diego",
+    "localidad": "Morón"
+    }]
+)
+
+// ----------------------------------------
+// 2) Encontrar un cliente de nombre 'Mario'
+// ----------------------------------------
+
+db.clientes.findOne({"nombre": "Mario"})
+
+// ----------------------------------------
+// 3) Encontrar clientes que vivan en Morón
+// ----------------------------------------
+
+db.clientes.find({"localidad": "Morón"})
+
+// --------------------------------
+// 4) Ordenamiento por apellido
+// --------------------------------
+
+db.clientes.find({"localidad": "Morón"}).sort("apellido")
+
+// ----------------------------------------
+// 5) Referenciando objetos
+// ----------------------------------------
+
+// Insertamos algunos productos
+producto1 = {
+    "código": "FD2910",
+    "nombre": "Amoladora",
+    "precio": 2200
+}
+producto2 = {
+    "código": "G49",
+    "nombre": "Cinta aisladora",
+    "precio": 40
+}
+producto3 = {
+    "código": "EA315",
+    "nombre": "Pinza"
+}
+
+db.productos.insertOne(producto1)
+db.productos.insertOne(producto2)
+db.productos.insertOne(producto3)
+
+db.productos.find()
+
+// Insertamos algunos pedidos
+pedido1 = {
+    "cod_pedido" : 78303,
+    "cliente" : id_cliente2,
+    "productos" : [ {"producto": id_producto2, "cantidad": 3}, {"producto": id_producto3, "cantidad": 2} ],
+    "fecha_entrega_limite": datetime.datetime(2017, 6, 18),
+    "entregado" : False
+}
+pedido2 = {
+    "cod_pedido" : 78587,
+    "cliente" : id_cliente3,
+    "productos" : [ {"producto": id_producto1, "cantidad": 1}, {"producto": id_producto3, "cantidad": 7} ],
+    "fecha_entrega_limite": datetime.datetime(2017, 5, 14),
+    "entregado" : True
+}
+pedido3 = {
+    "cod_pedido" : 78402,
+    "cliente" : id_cliente2,
+    "productos" : [ {"producto": id_producto3, "cantidad": 2}],
+    "fecha_entrega_limite": datetime.datetime(2017, 6, 19),
+    "entregado" : True
+}
+pedido4 = {
+    "cod_pedido" : 78609,
+    "cliente" : id_cliente1,
+    "productos" : [ {"producto": id_producto2, "cantidad": 5} ]
+}
+db.pedidos.insertMany([pedido1, pedido2, pedido3, pedido4])
+
+// ----------------------------------------
+// 6) Encontrar los clientes que pidieron el producto 3
+// ----------------------------------------
+
+result = db.pedidos.find({"productos.producto": id_producto3})
+
+// ----------------------------------------
+// 7) Pipeline de agregación
+// ----------------------------------------
+
+// Calcular la cantidad de clientes que viven en cada localidad¶
+
+db.clientes.aggregate( [
+    { "$group": {"_id": "$localidad", "cantidad": { "$sum": 1 } } },
+    //{ "$match": {"cantidad": { "$lte":  1 } } }
+])

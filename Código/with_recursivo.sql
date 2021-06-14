@@ -1,4 +1,4 @@
--- Este dataset utiliza la tabla Jugadores incluída
+-- Este ejemplo utiliza la tabla Jugadores incluída
 -- en el script mochila_jugadores.sql,
 -- y la tabla de Vuelos en el script vuelos.sql
 
