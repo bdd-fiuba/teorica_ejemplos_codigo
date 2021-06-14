@@ -7,3 +7,7 @@ SQL
 - Dataset de la Copa del Mundo 2010 (Dump de la base world_cup_2010)
 - Consultas con WITH RECURSIVO (Dump de la tabla Jugadores y código SQL para resolver el problema de la mochila, y dump de la tabla Vuelos y código SQL para encontrar los destinos alcanzables desde París)
 
+MongoDB
+
+- Ejemplo de inserción de documentos en la base y consultas básicas (mongodb_ejemplo.mongodb)
+- Consultas sobre el dataset de restaurantes (Dump JSON de la colección restaurants y código de las consultas en MongoDB).
