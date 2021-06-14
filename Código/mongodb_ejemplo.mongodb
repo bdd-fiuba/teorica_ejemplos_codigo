@@ -1,10 +1,10 @@
--- Este ejemplo no requiere de ningún dataset.
-
 show dbs
 use base_empresa
 show collections
 db.clientes.count()
 db.clientes.drop()
+db.productos.drop()
+db.pedidos.drop()
 
 // ----------------------------------------
 // 1) Insertamos algunos clientes
@@ -33,6 +33,10 @@ db.clientes.insertMany([{
     "localidad": "Morón"
     }]
 )
+id_cliente1 = db.clientes.findOne({ apellido: 'Wilkerson' }, { _id: -1})
+id_cliente2 = db.clientes.findOne({ apellido: 'Fonseca' }, { _id: -1})
+id_cliente3 = db.clientes.findOne({ apellido: 'Gandría' }, { _id: -1})
+id_cliente4 = db.clientes.findOne({ apellido: 'Findo' }, { _id: -1})
 
 // ----------------------------------------
 // 2) Encontrar un cliente de nombre 'Mario'
@@ -50,7 +54,7 @@ db.clientes.find({"localidad": "Morón"})
 // 4) Ordenamiento por apellido
 // --------------------------------
 
-db.clientes.find({"localidad": "Morón"}).sort("apellido")
+db.clientes.find({"localidad": "Morón"}).sort({"apellido": 1})
 
 // ----------------------------------------
 // 5) Referenciando objetos
@@ -73,32 +77,33 @@ producto3 = {
 }
 
 db.productos.insertOne(producto1)
+id_producto1 = db.productos.findOne({ codigo: producto1.codigo }, { _id: -1})
 db.productos.insertOne(producto2)
+id_producto2 = db.productos.findOne({ codigo: producto2.codigo }, { _id: -1})
 db.productos.insertOne(producto3)
-
-db.productos.find()
+id_producto3 = db.productos.findOne({ codigo: producto3.codigo }, { _id: -1})
 
 // Insertamos algunos pedidos
 pedido1 = {
     "cod_pedido" : 78303,
     "cliente" : id_cliente2,
     "productos" : [ {"producto": id_producto2, "cantidad": 3}, {"producto": id_producto3, "cantidad": 2} ],
-    "fecha_entrega_limite": datetime.datetime(2017, 6, 18),
-    "entregado" : False
+    "fecha_entrega_limite": ISODate("2017-06-18"),
+    "entregado" : false
 }
 pedido2 = {
     "cod_pedido" : 78587,
     "cliente" : id_cliente3,
     "productos" : [ {"producto": id_producto1, "cantidad": 1}, {"producto": id_producto3, "cantidad": 7} ],
-    "fecha_entrega_limite": datetime.datetime(2017, 5, 14),
-    "entregado" : True
+    "fecha_entrega_limite": ISODate("2017-05-14"),
+    "entregado" : true
 }
 pedido3 = {
     "cod_pedido" : 78402,
     "cliente" : id_cliente2,
     "productos" : [ {"producto": id_producto3, "cantidad": 2}],
-    "fecha_entrega_limite": datetime.datetime(2017, 6, 19),
-    "entregado" : True
+    "fecha_entrega_limite": ISODate("2017-06-19"),
+    "entregado" : true
 }
 pedido4 = {
     "cod_pedido" : 78609,
