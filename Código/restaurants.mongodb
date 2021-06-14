@@ -8,7 +8,8 @@ show collections
 // 1)¿Cuántos restaurantes de cada tipo hay en cada barrio?
 // -----------------------------------------
 
-col_restaurants = db.Collections('restaurants')
+use test
+col_restaurants = db.getCollection('restaurants')
 
 result = col_restaurants.aggregate( [
     { "$group": {"_id": {"borough": "$borough", "cuisine": "$cuisine"}, "cantidad": { "$sum": 1 } } },
