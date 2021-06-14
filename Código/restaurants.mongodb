@@ -4,5 +4,39 @@
 -- Cargarlos en MongoDB con el comando mongoimport.
 show collections
 
+// -----------------------------------------
+// 1)¿Cuántos restaurantes de cada tipo hay en cada barrio?
+// -----------------------------------------
 
+col_restaurants = db.Collections('restaurants')
 
+result = col_restaurants.aggregate( [
+    { "$group": {"_id": {"borough": "$borough", "cuisine": "$cuisine"}, "cantidad": { "$sum": 1 } } },
+    { "$sort": {"cantidad": -1 } },
+    { "$limit": 30 }
+])
+
+// -----------------------------------------
+// 2) ¿Cuáles son los 3 barrios en que hay más restaurantes italianos?
+// -----------------------------------------
+
+result = col_restaurants.aggregate( [
+    { "$match": {"cuisine": { "$eq":  "Italian" } } },
+    { "$group": {"_id": "$borough", "cantidad": { "$sum": 1 } } },
+    { "$sort": {"cantidad": -1 } },
+    { "$limit": 3 }
+])
+
+// -----------------------------------------
+// 3) Hallar nombre y puntaje de los 4 restaurantes de mayor
+// puntaje que hayan recibido al menos 5 calificaciones.
+// -----------------------------------------
+
+result = col_restaurants.aggregate( [
+    { "$unwind": "$grades" },
+    { "$group": {"_id": "$restaurant_id", "nombre" : { "$first": "$name"}, "puntaje": { "$avg": "$grades.score" }, "cant_calificaciones": { "$sum": 1 } } },
+    { "$match": {"cant_calificaciones": { "$gte": 5 } } },
+    { "$sort": {"puntaje": -1 } },
+    { "$limit": 4 },
+    { "$project": {"nombre": "$nombre", "puntaje": "$puntaje" } }
+])
