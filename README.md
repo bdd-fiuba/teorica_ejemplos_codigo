@@ -11,3 +11,7 @@ MongoDB
 
 - Ejemplo de inserción de documentos en la base y consultas básicas (mongodb_ejemplo.mongodb)
 - Consultas sobre el dataset de restaurantes (Dump JSON de la colección restaurants y código de las consultas en MongoDB).
+
+Cassandra
+
+- Ejemplo de definición de datos, carga de datos y ejecución de consultas en la base de una biblioteca.
