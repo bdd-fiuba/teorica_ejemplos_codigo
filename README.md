@@ -14,4 +14,9 @@ MongoDB
 
 Cassandra
 
-- Ejemplo de definición de datos, carga de datos y ejecución de consultas en la base de una biblioteca.
+- Ejemplo de definición de datos, carga de datos y ejecución de consultas en la base de una biblioteca (biblioteca.cql).
+
+Neo4j
+
+- Ejemplo de amigos y enemigos (amigos.cypher).
+- Ejemplo del árbol genealógico (arbol_genealogico.cypher).
