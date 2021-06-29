@@ -20,3 +20,4 @@ Neo4j
 
 - Ejemplo de amigos y enemigos (amigos.cypher).
 - Ejemplo del árbol genealógico (arbol_genealogico.cypher).
+- Datos para el ejercicio sobre recomendaciones incluído en las diapositivas de la clase.
