@@ -5,6 +5,7 @@
 SQL
 
 - Dataset de la Copa del Mundo 2010 (Dump de la base world_cup_2010)
+- Dataset de la Copa del Mundo 2022 (Dump de la base world_cup_2022)
 - Dataset de colectivos y paradas (Dump de la base Transporte)
 - Consultas con WITH RECURSIVO (Dump de la tabla Jugadores y código SQL para resolver el problema de la mochila, y dump de la tabla Vuelos y código SQL para encontrar los destinos alcanzables desde París)
 - Consultas con funciones de ventana (Dump de las tablas Final_2019, Exportaciones y Toques)
