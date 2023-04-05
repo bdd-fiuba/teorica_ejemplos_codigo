@@ -15,7 +15,6 @@ WITH RECURSIVE Mochila(tecnica_total, monto, equipo) AS
              Jugadores j
         WHERE m.monto + j.precio <=140
         AND j.jugador > ALL(m.equipo))
-
 SELECT *
 FROM Mochila
 WHERE tecnica_total >=
@@ -33,3 +32,25 @@ WITH RECURSIVE DestAlcanzables(destino_alc) AS
     )
 SELECT *
 FROM DestAlcanzables;
+
+
+-- Window functions
+SELECT
+       RANK() OVER (ORDER BY marca_seg ) AS posición,
+        nombre_atleta , pais_origen , marca_seg,
+        AVG(marca_seg) OVER (ORDER BY marca_seg)
+FROM Final_2009
+ORDER BY posición;
+
+SELECT *
+FROM Exportaciones;
+
+SELECT producto,
+       RANK() OVER (PARTITION BY producto ORDER BY cantidad DESC) AS ranking,
+       pais, cantidad
+FROM Exportaciones
+ORDER BY producto DESC, ranking, pais;
+
+
+SELECT fecha, cliente, SUM(monto) OVER (PARTITION BY cliente ORDER BY fecha) AS saldo
+FROM Operaciones;
